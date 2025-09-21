@@ -20,7 +20,8 @@ export const applicationSchema = z.object({
       'Debe ser un perfil de GamersClub'
     ),
   discordLink: z
-    .string(),
+    .string()
+    .min(2, 'Deebe ser un usuario o enlace válido'),
   hoursPlayed: z
     .number({ invalid_type_error: 'Debe ser un número' })
     .int('Debe ser un número entero')

@@ -14,8 +14,8 @@ body::before {
   position: fixed;
   inset: -1px;
   background: 
-    radial-gradient(1000px 500px at 80% -10%, rgba(34,211,238,.2), rgba(0,0,0,0)),
-    radial-gradient(800px 400px at 10% 110%, rgba(109,139,255,.18), rgba(0,0,0,0));
+    radial-gradient(1000px 500px at 80% -10%, rgba(250,204,21,.18), rgba(0,0,0,0)),
+    radial-gradient(800px 400px at 10% 110%, rgba(139,92,246,.2), rgba(0,0,0,0));
   pointer-events: none;
   z-index: -1;
 }
@@ -48,7 +48,7 @@ body::after {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(109,139,255,.35), rgba(34,211,238,.35));
+  background: linear-gradient(135deg, rgba(139,92,246,.35), rgba(250,204,21,.35));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -63,12 +63,12 @@ body::after {
 .select {
   appearance: none;
   padding-right: 2.25rem; /* space for caret */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23A5B4FC' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%238B5CF6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.6rem center;
 }
 .select:focus {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2322D3EE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23FACC15' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 .select option {
   background-color: rgb(14 22 48 / 0.98);
@@ -93,7 +93,7 @@ input[type=number] {
 .error { @apply text-xs text-red-400; }
 
 .btn {
-  @apply inline-flex items-center justify-center rounded-md bg-gradient-to-r from-cs-accent to-cs-accent2 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-900/30 hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-cs-accent/40 disabled:opacity-60 transition-all;
+  @apply inline-flex items-center justify-center rounded-md bg-gradient-to-r from-cs-accent to-cs-accent2 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-900/30 hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-cs-accent/40 disabled:opacity-60 transition-all;
 }
 
 .chip {
@@ -138,8 +138,8 @@ input[type=number] {
   inset: 0;
   background-image: repeating-linear-gradient(
     180deg,
-    rgba(109,139,255,0.15) 0px,
-    rgba(109,139,255,0.15) 2px,
+    rgba(139,92,246,0.15) 0px,
+    rgba(139,92,246,0.15) 2px,
     rgba(0,0,0,0) 2px,
     rgba(0,0,0,0) 20px
   );
@@ -150,7 +150,7 @@ input[type=number] {
   width: 320px;
   height: 320px;
   border-radius: 9999px;
-  background: radial-gradient(closest-side, rgba(34,211,238,0.25), rgba(0,0,0,0));
+  background: radial-gradient(closest-side, rgba(250,204,21,0.25), rgba(0,0,0,0));
   filter: blur(8px);
   animation: glow 3s ease-in-out infinite;
 }

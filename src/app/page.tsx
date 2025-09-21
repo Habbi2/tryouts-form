@@ -122,7 +122,7 @@ export default function Home() {
   return (
     <div>
       <div className="flex items-center gap-3">
-        <Image src="/crosshair.svg" alt="CS2" width={32} height={32} className="opacity-80" />
+        <Image src="/space-kings.png" alt="Space Kings" width={64} height={64} className="opacity-80 rounded" />
         <h1 className="title">TRYOUT CS2</h1>
       </div>
       <p className="help mt-1">Postulación para Space Kings</p>
