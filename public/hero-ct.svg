@@ -1,0 +1,15 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#f)" opacity="0.7">
+<path d="M180 300C150 270 150 230 170 210C195 185 240 190 260 220C292 268 355 250 360 210C365 170 410 140 455 155C500 170 520 220 520 250C520 300 470 330 410 330H250C215 330 195 320 180 300Z" fill="url(#g)"/>
+<path d="M520 250C520 220 540 175 585 160C630 145 680 170 695 210C714 260 675 310 620 320C600 324 580 326 560 326C530 326 520 300 520 250Z" fill="url(#g)"/>
+</g>
+<defs>
+<filter id="f" x="120" y="110" width="620" height="270" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="30"/>
+</filter>
+<linearGradient id="g" x1="180" y1="180" x2="700" y2="330" gradientUnits="userSpaceOnUse">
+<stop stop-color="#6D8BFF"/>
+<stop offset="1" stop-color="#22D3EE"/>
+</linearGradient>
+</defs>
+</svg>

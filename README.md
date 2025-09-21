@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Formulario de Tryout CS2 (Vercel)
 
-## Getting Started
+Aplicación Next.js + Tailwind + Zod para reemplazar el formulario manual de Discord y enviar postulaciones a un Webhook de Discord.
 
-First, run the development server:
+## Características
+- Formulario validado (React Hook Form + Zod)
+- API serverless que valida y envía a un Discord Webhook
+- Honeypot anti-bots (`company`)
+- UI limpia con Tailwind
+- Preparado para Vercel
 
-```bash
+## Requisitos
+- Node.js 18+
+- Cuenta de Vercel (opcional para desplegar)
+
+## Configuración local
+1. Instalar dependencias
+2. Crear `.env.local` con tu webhook
+3. Ejecutar en desarrollo
+
+```cmd
+cd c:\Users\javie\Desktop\formulario-cesar
+npm install
+copy .env.local.example .env.local
+REM Edita .env.local y pega tu DISCORD_WEBHOOK_URL
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Despliegue en Vercel
+1. Sube este repo a GitHub/GitLab/Bitbucket
+2. En Vercel, importa el proyecto
+3. Variables de entorno en Project Settings → Environment Variables:
+	- `RESEND_API_KEY`
+	- `MAIL_FROM` (p.ej. `Tryouts <tryouts@tudominio.com>`)
+	- `MAIL_TO` (inbox donde recibes las postulaciones)
+4. Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Cómo configurar Resend
+- Crea una cuenta en https://resend.com y genera `RESEND_API_KEY`.
+- Verifica un dominio/remitente (para `MAIL_FROM`), o usa un sender verificado.
+- Define `MAIL_TO` al correo de destino (puedes poner varios separados por coma).
 
-## Learn More
+## Personalización
+- Edita el esquema en `src/lib/schema.ts` para ajustar validaciones y opciones (roles, mapas, etc.)
+- Edita la UI en `src/app/page.tsx`
+- Ajusta estilos en `src/app/globals.css`
 
-To learn more about Next.js, take a look at the following resources:
+## Seguridad y límites
+- Honeypot simple evita algunos bots
+- Para rate limiting real: usar `@upstash/ratelimit` o Vercel Edge Config (pendiente)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Licencia
+MIT

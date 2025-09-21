@@ -1,26 +1,163 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html, body, #__next { height: 100%; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-cs-bg text-white antialiased relative overflow-x-hidden;
+}
+
+/* Background layers (neon glows + subtle grid) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -1px;
+  background: 
+    radial-gradient(1000px 500px at 80% -10%, rgba(34,211,238,.2), rgba(0,0,0,0)),
+    radial-gradient(800px 400px at 10% 110%, rgba(109,139,255,.18), rgba(0,0,0,0));
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: -1px;
+  background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: 0 0;
+  mask-image: radial-gradient(ellipse at center, rgba(255,255,255,0.4), transparent 70%);
+  opacity: 0.2;
+  animation: grid 12s linear infinite;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.card {
+  position: relative;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(109,139,255,.35), rgba(34,211,238,.35));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.input {
+  @apply w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm placeholder-white/50 outline-none focus:ring-2 focus:ring-cs-accent/50 focus:border-cs-accent;
+}
+
+/* Enhanced select styling (custom caret, better options) */
+.select {
+  appearance: none;
+  padding-right: 2.25rem; /* space for caret */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23A5B4FC' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+}
+.select:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2322D3EE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+.select option {
+  background-color: rgb(14 22 48 / 0.98);
+  color: #fff;
+}
+
+/* Number input: hide default steppers for a cleaner look */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+.input-number {
+  text-align: left;
+}
+
+.label { @apply block text-sm font-medium text-white/80 mb-1; }
+.help { @apply text-xs text-white/60; }
+.error { @apply text-xs text-red-400; }
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-md bg-gradient-to-r from-cs-accent to-cs-accent2 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-900/30 hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-cs-accent/40 disabled:opacity-60 transition-all;
+}
+
+.chip {
+  @apply px-3 py-1 rounded-md border text-sm border-white/10 bg-white/5 hover:border-cs-accent/40 hover:bg-cs-card/40 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-cs-accent/40 active:translate-y-px cursor-pointer;
+}
+
+.chip.active {
+  @apply bg-cs-card border-cs-accent/50 shadow-glow;
+}
+
+/* Display titles */
+.title {
+  @apply font-display tracking-wide text-3xl sm:text-4xl;
+}
+
+@keyframes grid {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+
+/* Progress bar */
+.progress {
+  @apply w-full h-2 rounded-full bg-white/10 overflow-hidden;
+}
+.progress-bar {
+  @apply h-full bg-gradient-to-r from-cs-accent to-cs-accent2 transition-[width] duration-500 ease-out;
+}
+
+/* Scanning overlay */
+.scan-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8,12,25,0.75);
+  backdrop-filter: blur(2px);
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  cursor: wait;
+}
+.scan-lines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(109,139,255,0.15) 0px,
+    rgba(109,139,255,0.15) 2px,
+    rgba(0,0,0,0) 2px,
+    rgba(0,0,0,0) 20px
+  );
+  animation: scan-move 2s linear infinite;
+}
+.scan-glow {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, rgba(34,211,238,0.25), rgba(0,0,0,0));
+  filter: blur(8px);
+  animation: glow 3s ease-in-out infinite;
+}
+.scan-text {
+  @apply text-white/90 font-display tracking-wide text-xl;
+}
+@keyframes scan-move {
+  0% { background-position-y: 0; }
+  100% { background-position-y: 100%; }
 }
