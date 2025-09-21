@@ -125,7 +125,7 @@ export default function Home() {
         <Image src="/crosshair.svg" alt="CS2" width={32} height={32} className="opacity-80" />
         <h1 className="title">TRYOUT CS2</h1>
       </div>
-      <p className="help mt-1">Postulación para Kings Of Space</p>
+      <p className="help mt-1">Postulación para Space Kings</p>
 
       {/* Progress */}
       <div className="mt-4">

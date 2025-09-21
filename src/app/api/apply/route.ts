@@ -34,6 +34,22 @@ function toEmailHtml(data: ApplicationInput) {
   </div>`
 }
 
+type ResendNormalizedError = { statusCode?: number; name?: string; message?: string }
+function getResendError(result: unknown): ResendNormalizedError | null {
+  if (!result || typeof result !== 'object') return null
+  // Many SDK versions use shape: { error: { statusCode, name, message } | string | null }
+  if ('error' in result) {
+    const err = (result as { error: unknown }).error
+    if (!err) return null
+    if (typeof err === 'string') return { message: err }
+    if (typeof err === 'object' && err) {
+      const e = err as Partial<ResendNormalizedError>
+      return { statusCode: e.statusCode, name: e.name, message: e.message }
+    }
+  }
+  return null
+}
+
 function extractPlayerName(data: ApplicationInput): string {
   try {
     const takeLast = (url: string, marker: string) => {
@@ -110,13 +126,13 @@ export async function POST(req: Request) {
       subject,
       html,
     })
-    const sendError = (result as any)?.error
+    const sendError = getResendError(result)
     if (sendError) {
       console.error('Resend send error:', sendError)
-      const message = typeof sendError === 'string' ? sendError : sendError?.message || 'Error desconocido'
+      const message = sendError.message || 'Error desconocido'
       const isDomainNotVerified =
-        (sendError?.statusCode === 403 && sendError?.name === 'validation_error') ||
-        (typeof message === 'string' && message.toLowerCase().includes('not verified'))
+        (sendError.statusCode === 403 && sendError.name === 'validation_error') ||
+        message.toLowerCase().includes('not verified')
 
       // Dev fallback: retry with onboarding@resend.dev to avoid blocking while domain is unverified
       if (isDomainNotVerified) {
@@ -127,7 +143,7 @@ export async function POST(req: Request) {
             subject,
             html,
           })
-          const fbErr = (fallback as any)?.error
+          const fbErr = getResendError(fallback)
           if (!fbErr) {
             return NextResponse.json({ ok: true, note: 'Enviado usando onboarding@resend.dev (dominio no verificado)' })
           }
